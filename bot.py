@@ -15,11 +15,11 @@ def get_members(api, group_id):
 
 #функция получения постов со стены
 def get_posts(api, group_id):
-    resp = api.wall.get(group_id=group_id, count=100, offset=0)
+    resp = api.wall.get(owner_id=group_id, count=100, offset=0)
     count = resp['count']
     posts = resp[1:]
     while len(posts) < count:
-        resp = api.wall.get(group_id=group_id, count=100, offset=len(posts))
+        resp = api.wall.get(owner_id=group_id, count=100, offset=len(posts))
         posts.extend(resp[1:])
     return posts
 
@@ -29,7 +29,7 @@ def get_likes(api, group_id):
     members_likes = set()
     for post in posts:
         #для каждого поста получаем список лайков
-        resplikes = likes.getList(type=post, group_id=group_id)
+        resplikes = api.likes.getList(type=post, owner_id=group_id)
         #для каждого поста создаём список с лайками
         getlikes = resplikes['likes']
         #узнаём кол-во лайков
