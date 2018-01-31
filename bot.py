@@ -40,7 +40,7 @@ def get_likes(api, group_id):
         for id in getlikes:
             #проверяем каждого, кто лайкнул, есть ли он в участниках группы
             if id in members: # and ('тут условие, что участник лайкнул более 1 раза за 14 дней'):
-                members_likes.extend(id)
+                members_likes.add(id)
                 members_likes(id) += 1 #увеличиваем "счётчик" участника с каждым лайком
             else:
                 continue
