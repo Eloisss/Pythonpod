@@ -45,6 +45,23 @@ def get_likes(api, group_id):
                 continue
     return members_likes
 
+def get_timereposts(api, group_id):
+    members = get_members(api, group_id)
+    # создаем словарь, где ключ - id пользователя, значения - 0
+    users = dict.fromkeys(members, 0)
+    posts = get_posts(api, group_id)
+    for post in posts:
+        # берем количество репостов
+        count = post['reposts']['count']
+        # если их нет - берем следующий пост
+        if count == 0:
+            continue
+        response = api.wall.getReposts(owner_id=-group_id, post_id=post_id, count=1000, offset=response_count * 1000)
+        for repost in response['items']:
+            if datatime.today - datatime.fromtimestamp(int(repost["date"])) < datatime.timedelta(14):
+                users[repost["from_id"]] += 1
+    return users
+
 
 def main():
     # открываем сессию
@@ -52,8 +69,8 @@ def main():
     # создаем api
     api = vk.API(session)
    # likes = get_likes(api, group_id=160694135)
-    posts = get_likes(api, group_id=160694135)
-    print(posts)
+    likes = get_likes(api, group_id=160694135)
+    print(likes)
 
 if __name__ == "__main__":
     main()
