@@ -24,7 +24,7 @@ def get_posts(api, group_id):
         posts.extend(resp[1:])
     return posts
 
-def get_likes(api,):
+def get_likes(api, group_id):
     members = get_members(api, group_id)
     posts = get_posts(api, group_id)
     members_likes = set()
@@ -41,10 +41,10 @@ def get_likes(api,):
         for id in getlikes:
             #проверяем каждого, кто лайкнул, есть ли он в участниках группы
             if id in members: # and ('тут условие, что участник лайкнул более 1 раза за 14 дней'):
-                id += 1
                 members_likes.extend(id)
             else:
                 continue
+            id += 1
     return members_likes
 
 
