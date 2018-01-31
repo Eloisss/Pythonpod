@@ -9,7 +9,7 @@ def get_members(api, group_id):
     count = resp['count']
     members = [];
     while count > len(resp):
-        resp = API.groups.getMembers(group_id = group_id, offset = len(members))
+        resp = api.groups.getMembers(group_id = group_id, offset = len(members))
         members.push(resp)
     return members
 
