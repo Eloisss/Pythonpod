@@ -1,5 +1,4 @@
 import vk
-from rate import rate_limited
 
 
 # функция получения списка членов группы
