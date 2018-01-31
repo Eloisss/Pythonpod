@@ -51,12 +51,12 @@ def get_likes(api, group_id):
 
 
 def main():
-    session = vk.Session()
-    group_id = 12345678
-    api.VkApi(token ='token ')
-    vk.auth()
-    posts = get_posts(api, group_id=group_id)
-    print (posts)
-    url = "https://api.vk.com/method/execute?"
+    # открываем сессию
+    session = vk.Session(access_token='token')
+    # создаем api
+    api = vk.API(session)
+    likes = get_likes(api, group_id=160694135)
+    print(likes)
 
-
+if __name__ == "__main__":
+    main()
