@@ -54,8 +54,8 @@ def get_likes(api,):
 
 def main():
     session = vk.Session()
-    group_id = 158717480
-    api.VkApi(token ='7a8dd9837a8dd9837a8dd983197aed001977a8d7a8dd98320e716a57d3cad75afbb2372')
+    group_id = 12345678
+    api.VkApi(token ='token ')
     vk.auth()
     posts = get_posts(api, group_id=group_id)
     print (posts)
