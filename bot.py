@@ -26,14 +26,14 @@ def get_posts(api, group_id):
 def get_likes(api, group_id):
     members = get_members(api, group_id)
     posts = get_posts(api, group_id)
-    members_likes = dict()
+    members_likes = {}
     for post in posts:
         #для каждого поста получаем список лайков
-        resplikes = api.likes.getList(type=post, owner_id=-group_id)
+        resplikes = api.likes.getList(type='post', owner_id=-group_id, item_id=post['id'])
         #для каждого поста создаём список с лайками
-        getlikes = resplikes['likes']
+        getlikes = resplikes['users']
         #узнаём кол-во лайков
-        count = len(getlikes)
+        count = resplikes['count']
         if count == 0:
             continue
         #проверяем всех, кто лайкнул:
