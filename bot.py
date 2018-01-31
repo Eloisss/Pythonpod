@@ -32,7 +32,7 @@ def get_likes(api, group_id):
         #для каждого поста получаем список лайков
         resplikes = likes.getList(type=post, group_id=group_id)
         #для каждого поста создаём список с лайками
-        getlikes = resp['likes']
+        getlikes = resplikes['likes']
         #узнаём кол-во лайков
         count = len(getlikes)
         if count == 0:
