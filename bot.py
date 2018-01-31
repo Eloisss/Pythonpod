@@ -6,20 +6,20 @@ def get_members(api, group_id):
     # получение 1000 первых членов группы
     resp = api.groups.getMembers(group_id=group_id)
     count = resp['count']
-    members = [];
+    members = []
     while count > len(resp):
-        resp = api.groups.getMembers(group_id = group_id, offset = len(members))
+        resp = api.groups.getMembers(group_id =group_id, offset = len(members))
         members.push(resp)
     return members
 
 
 #функция получения постов со стены
 def get_posts(api, group_id):
-    resp = api.wall.get(owner_id=group_id, count=100, offset=0)
+    resp = api.wall.get(owner_id=-group_id, count=100, offset=0)
     count = resp['count']
     posts = resp[1:]
     while len(posts) < count:
-        resp = api.wall.get(owner_id=group_id, count=100, offset=len(posts))
+        resp = api.wall.get(owner_id=-group_id, count=100, offset=len(posts))
         posts.extend(resp[1:])
     return posts
 
@@ -29,7 +29,7 @@ def get_likes(api, group_id):
     members_likes = set()
     for post in posts:
         #для каждого поста получаем список лайков
-        resplikes = api.likes.getList(type=post, owner_id=group_id)
+        resplikes = api.likes.getList(type=post, owner_id=-group_id)
         #для каждого поста создаём список с лайками
         getlikes = resplikes['likes']
         #узнаём кол-во лайков
@@ -41,7 +41,7 @@ def get_likes(api, group_id):
             #проверяем каждого, кто лайкнул, есть ли он в участниках группы
             if id in members: # and ('тут условие, что участник лайкнул более 1 раза за 14 дней'):
                 members_likes.extend(id)
-                members_likes[id] += 1 #увеличиваем "счётчик" участника с каждым лайком
+                members_likes(id) += 1 #увеличиваем "счётчик" участника с каждым лайком
             else:
                 continue
             id += 1
